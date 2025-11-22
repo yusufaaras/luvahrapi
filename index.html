@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Anasayfa - LuvaHr İnsan Kaynakları ve Yönetim Danışmanlığı</title>
+  <meta name="description"
+    content="Farklı sektörlere yönelik profesyonel insan kaynakları, yönetim ve işe alım danışmanlığı hizmetleri. Doğru yetenek, doğru rol.">
+  <meta name="keywords"
+    content="LuvaHr, İK Danışmanlığı, İnsan Kaynakları, Yönetim Danışmanlığı, İşe Alım, Yetenek Yönetimi">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --luva-primary: #521e6a;
+      --luva-white: #ffffff;
+    }
+
+    /* CV Modal için güncel stiller (Bootstrap ile uyumlu) */
+    #cvModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #cvModal .modal-header {
+      background: var(--luva-primary);
+      color: var(--luva-white);
+      border-bottom: none;
+      padding: 1.25rem 1.5rem;
+      align-items: center;
+    }
+
+    #cvModal .modal-header .modal-title {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    #cvModal .modal-body {
+      background: var(--luva-white);
+      color: #222;
+      padding: 1.5rem;
+    }
+
+    /* Form alanları */
+    #cvForm .form-control {
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid #e6e6e6;
+      box-shadow: none;
+    }
+
+    #cvForm .btn-submit-cv {
+      background: var(--luva-primary);
+      color: var(--luva-white);
+      border: none;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    #cvForm .btn-submit-cv:disabled {
+      opacity: 0.7;
+    }
+
+    /* success modal */
+    #cvSuccessModal .modal-content {
+      border-radius: 12px;
+    }
+
+    #cvSuccessModal .btn-ok {
+      background: var(--luva-primary);
+      color: var(--luva-white);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+    }
+
+    /* küçük ekranlarda modal genişletme */
+    @media (max-width: 576px) {
+      #cvModal .modal-dialog {
+        margin: 0.5rem;
+      }
+    }
+  </style>
+  <style>
+    #hero {
+      /* aynı dosya yolu kullandım, sadece özellikleri genişlettim */
+      background-image: url('assets/img/home1.svg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      /* merkezde tutar, medya sorgularında ayarlanıyor */
+      background-size: cover;
+      /* alanı kaplasın */
+      -webkit-background-size: cover;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      /* yatayda kenarlardan iç boşluk vererek taşmayı önler */
+      background-attachment: scroll;
+      /* mobilde sabit arka plan sorunlarını önler */
+    }
+
+    /* Container kenar boşluklarını kontrol et */
+    #hero .container {
+      width: 100%;
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+
+    /* Yazıların ekran boyutuna göre ölçeklenmesi */
+    #hero h1 {
+      margin: 0 0 0.5rem 0;
+      line-height: 1.05;
+      /* clamp ile küçük ekranlarda küçülür, büyük ekranda büyür */
+      font-size: clamp(1.6rem, 4vw, 3rem);
+    }
+
+    #hero p {
+      margin: 0;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+    }
+
+    /* Küçük ekranlar için arka plan pozisyonu ve yükseklik ayarları */
+    @media (max-width: 992px) {
+      #hero {
+        /* Görüntünün mobilde önemli kısmı görünmesi için biraz yukarı kaydırabiliriz */
+        background-position: center 30%;
+        min-height: 75vh;
+        /* çok yer kaplamasın, içerik görünür kalsın */
+        padding: 2.5rem 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      #hero {
+        background-position: center 30%;
+        min-height: 65vh;
+        padding: 2rem 0.75rem;
+      }
+
+      /* Flex içindeki düzen küçük ekranda dikey olabilir */
+      #hero .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #hero {
+        background-position: center 20%;
+        min-height: 55vh;
+        padding: 1.5rem 0.75rem;
+      }
+
+      #hero h1 {
+        font-size: 1.4rem;
+      }
+
+      #hero p {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">LuvaHr</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero" class="active">Anasayfa</a></li>
+          <li><a href="index.html#about">Hakkımızda</a></li>
+          <li><a href="index.html#features">Çözümlerimiz</a></li>
+          <li><a href="index.html#contact">İletişim</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#cvModal">Cv Gönder</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section">
+                  <div class="container text-center">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h1 data-aos="fade-up"><span>LuvaHr'a Hoş Geldiniz</span></h1>
+                    <p data-aos="fade-up" data-aos-delay="100">İhtiyaç duyduğunuz doğru yetenekleri doğru fırsatlarla
+            buluşturuyoruz.<br></p>
+                    <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                      </div>
+                  </div>
+              </div>
+
+          </section>
+
+    <section id="featured-services" class="featured-services section light-background">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Doğru Aday Konumlandırma</a></h4>
+                <p class="description">Farklı sektörlerin ihtiyaçlarına uygun, kültürel uyumu yüksek en yetkin adayları
+                  belirliyor ve doğru pozisyona yerleştiriyoruz.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Yetenek Havuzu Yönetimi</a></h4>
+                <p class="description">Geniş ve nitelikli yetenek havuzumuz ile şirketlerinize hızlı ve etkili işe alım
+                  çözümleri sunuyoruz.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link">Stratejik İK Danışmanlığı</a></h4>
+                <p class="description">İşe alım süreçlerinizden başlayarak, şirketinizin büyüme hedeflerine uygun
+                  stratejik İK danışmanlığı ile yanınızdayız.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <section id="about" class="about section">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-12 content" data-aos="fade-up" data-aos-delay="100">
+            <p class="who-we-are">Biz Kimiz</p>
+            <h3>İşe Alımı Daha Profesyonel, Hızlı ve Öngörülebilir Hale Getiriyoruz</h3>
+            <p class="fst-italic">
+              İnsan kaynakları dünyasında edindiğimiz yıllara dayanan deneyim boyunca, şirketlerin büyümesinde en kritik
+              unsurun doğru insanları doğru rollerle buluşturmak olduğunu deneyimledik. Sahip olduğumuz geçmiş deneyim
+              ve farklı sektörlerde yürüttüğümüz işe alım süreçleri, bize hem aday tarafını hem işveren tarafını çok iyi
+              anlama yeteneği kazandırdı.
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Bugün LuvaHR’da, her müşterimizin kültürünü, değerlerini ve
+                  ihtiyaçlarını derinlemesine anlayarak, yalnızca pozisyona değil ekip dinamiğine de uyum sağlayacak
+                  doğru yetenekleri bulmaya odaklanıyoruz.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>İletişime önem veren, şeffaf çalışan ve aday deneyimini
+                  merkeze koyan bir yaklaşım benimsiyoruz.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>LuvaHR'ı kurma amacımız; işe alım sürecini firmalar için daha
+                  profesyonel, daha hızlı ve daha öngörülebilir hale getirmekti.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>İyi bir işe alım süreci, yalnızca bir pozisyon doldurmak
+                  değil; şirketin geleceğine değer katmaktır.</span></li>
+            </ul>
+            <a href="#" class="read-more" data-bs-toggle="modal" data-bs-target="#cvModal"><span>Cv Gönder</span><i
+                class="bi bi-arrow-right"></i></a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <section id="clients" class="clients section" style="display: none;">
+
+      <div class="container" data-aos="fade-up">
+        <div class="container section-title">
+          <h2>Müşterilerimiz ve Çalıştığımız Sektörler</h2>
+          <p>Farklı sektörlerdeki iş ortaklarımıza sunduğumuz değer odaklı çözümler:</p>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="Lojistik Sektörü">
+          </div>
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="Perakende Sektörü">
+          </div>
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="Finans Sektörü">
+          </div>
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="Üretim Sektörü">
+          </div>
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="Sağlık Sektörü">
+          </div>
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="Teknoloji Sektörü">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <section id="features" class="features section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Çözümlerimiz</h2>
+        <p>Doğru yetenek. Doğru zaman. Doğru süreç. Hızlı, özenli ve kaliteli işe alım yaklaşımımızla büyümenizi
+          hızlandırıyoruz.</p>
+      </div>
+      <div class="container">
+        <div class="row justify-content-between">
+
+          <div class="col-lg-5 d-flex align-items-center">
+
+            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                  <i class="bi bi-binoculars"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">Yetkinlik Bazlı Değerlendirme</h4>
+                    <p>
+                      Adayların teknik ve davranışsal yetkinliklerini çeşitli envanter teslerimizle derinlemesine
+                      analiz ederek, pozisyona en uygun ve kültürel olarak en uyumlu adayı belirliyoruz.
+                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                  <i class="bi bi-box-seam"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">Hızlı ve Özenli İşe Alım Süreci</h4>
+                    <p>
+                      Hızlı, özenli ve kaliteli işe alım yaklaşımımızla, pozisyonlarınızı en kısa sürede kapatıyor ve
+                      şirketinizin büyümesini hızlandırıyoruz.
+                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                  <i class="bi bi-brightness-high"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">Doğru Yetenek Eşleştirme</h4>
+                    <p>
+                      Sadece teknik yeterliliğe değil, aynı zamanda kültürel uyuma ve uzun vadeli başarı potansiyeline
+                      odaklanarak doğru yeteneği doğru pozisyona yerleştiriyoruz.
+                    </p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+              <div class="tab-pane fade active show" id="features-tab-1">
+                <img src="assets/img/uzmanlık.png" alt="" class="img-fluid">
+              </div>
+              <div class="tab-pane fade" id="features-tab-2">
+                <img src="assets/img/tabs-2.jpeg" alt="" class="img-fluid">
+              </div>
+              <div class="tab-pane fade" id="features-tab-3">
+                <img src="assets/img/tabs-3.jpeg" alt="" class="img-fluid">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <section id="more-features" class="more-features section">
+
+      <div class="container">
+
+        <div class="row justify-content-around gy-4">
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up"
+            data-aos-delay="100">
+            <h3>Neden LuvaHr'ı Tercih Etmelisiniz?</h3>
+            <p>Deneyimimiz, farklı sektörlerdeki geniş bilgi birikimimiz ve doğru eşleştirme vizyonumuzla, işe alım
+              süreçlerinizde verimlilik ve kalitede fark yaratıyoruz. Sizin için en uygun çözümü sunmak için buradayız.
+            </p>
+
+            <div class="row">
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-easel flex-shrink-0"></i>
+                <div>
+                  <h4>Geniş Sektör Deneyimi</h4>
+                  <p>Farklı sektörlere yönelik derin bilgi birikimi ve her alanda kanıtlanmış tecrübe.</p>
+                </div>
+              </div>
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-patch-check flex-shrink-0"></i>
+                <div>
+                  <h4>Hız ve Verimlilik</h4>
+                  <p>Geniş aday havuzumuz ve optimize süreçlerimiz sayesinde hızlı ve verimli işe alım garantisi.</p>
+                </div>
+              </div>
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-brightness-high flex-shrink-0"></i>
+                <div>
+                  <h4>Kültürel Uyum</h4>
+                  <p>Adayın sadece yetkinlikleri değil, şirket kültürüne uyumu da önceliğimizdir.</p>
+                </div>
+              </div>
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-brightness-high flex-shrink-0"></i>
+                <div>
+                  <h4>Gizlilik ve Güven</h4>
+                  <p>Tüm işe alım ve danışmanlık süreçlerinde mutlak gizlilik ve güven sağlıyoruz.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/img/features-3.jpeg" class="img-fluid" alt="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+    <section id="pricing" class="pricing section">
+
+    </section>
+    <section id="faq" class="faq section">
+
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Sıkça Sorulan Sorular (SSS)</h2>
+      </div>
+      <div class="container">
+
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="faq-container">
+
+              <div class="faq-item faq-active">
+                <h3>LuvaHr hangi sektörlere hizmet vermektedir?</h3>
+                <div class="faq-content">
+                  <p>LuvaHr, tek bir sektörle sınırlı kalmayarak, Teknoloji, Üretim, Perakende, Finans, Lojistik ve
+                    daha birçok farklı sektördeki şirketlere insan kaynakları danışmanlığı hizmeti vermektedir.
+                    Uzmanlığımız,
+                    pozisyonun ve şirketin ihtiyaçlarını derinlemesine anlamamızdan gelmektedir.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3>Doğru adayı doğru şirkete nasıl konumlandırıyorsunuz?</h3>
+                <div class="faq-content">
+                  <p>Adayların sadece teknik/mesleki yetkinliklerini değil, aynı zamanda şirket kültürüne ve takım
+                    dinamiklerine uyumunu da kapsamlı değerlendirme yöntemleriyle analiz ediyor ve en doğru eşleştirmeyi
+                    yapıyoruz.
+                  </p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3>İşe alım süreci ortalama ne kadar sürer?</h3>
+                <div class="faq-content">
+                  <p>Pozisyonun uzmanlık seviyesi ve karmaşıklığına bağlı olmakla birlikte, geniş ve aktif aday
+                    havuzumuz
+                    sayesinde süreci rakiplerimize göre daha hızlı ve verimli tamamlıyoruz. Ortalama süre proje bazında
+                    değişmektedir.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3>Sunduğunuz ek İK danışmanlık hizmetleri nelerdir?</h3>
+                <div class="faq-content">
+                  <p>İşe alımın yanı sıra, kurumsal eğitimler, performans yönetim sistemi kurulumu, yetenek yönetimi
+                    stratejileri ve öz-süreç yönetimi gibi konularda da destek sağlıyoruz.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3>Küçük ölçekli şirketler de hizmet alabilir mi?</h3>
+                <div class="faq-content">
+                  <p>Elbette. Hizmet paketlerimiz, yeni kurulmuş startup'lardan köklü kurumsal firmalara kadar her
+                    ölçekteki şirketin ihtiyaçlarına uygun esneklikte tasarlanmıştır. İhtiyaçlarınıza özel bir plan
+                    oluşturabiliriz.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+              <div class="faq-item">
+                <h3>Gizlilik politikanız hakkında bilgi alabilir miyim?</h3>
+                <div class="faq-content">
+                  <p>Tüm müşteri ve aday bilgilerinin gizliliği en büyük önceliğimizdir. Süreçlerimizde KVKK'ya tam
+                    uyumluluk ve etik kurallar çerçevesinde mutlak gizlilik sağlanır.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <section id="contact" class="contact section">
+
+        <div class="container section-title" data-aos="fade-up">
+          <h2>İletişim</h2>
+          <p>Bize ulaşmak için aşağıdaki iletişim bilgilerini kullanabilir veya formu doldurarak talebinizi
+            iletebilirsiniz.</p>
+        </div>
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="row gy-4">
+
+            <div class="col-lg-6">
+              <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+                data-aos-delay="200">
+                <i class="bi bi-geo-alt"></i>
+                <h3>Adres</h3>
+                <p>Maslak Mah. Bilim Sok. Sun Plaza Kat:13 No:5/A<br>SARIYER / İSTANBUL</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+                data-aos-delay="300">
+                <i class="bi bi-telephone"></i>
+                <h3>Bizi Arayın</h3>
+                <p>0212 366 57 32</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up"
+                data-aos-delay="400">
+                <i class="bi bi-envelope"></i>
+                <h3>E-posta Gönderin</h3>
+                <p>arasy541@gmail.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row gy-4 mt-1">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.8286903330693!2d29.006945515256247!3d41.0664984792994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab697782d4cfd%3A0xf650d32f1a6b0c2a!2sSun%20Plaza!5e0!3m2!1str!2str!4v1700208000000!5m2!1str!2str"
+                frameborder="0" style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="col-lg-6">
+              <form action="/api/submit-cv" method="post" enctype="multipart/form-data" class="cvi-modal-form">
+                <!-- input'larınızın name atribütleri aşağıdakine benzer olmalı -->
+                <input type="text" name="name" id="name" placeholder="Adınız" required>
+                <input type="email" name="email" id="email" placeholder="E-posta" required>
+                <input type="text" name="phone" id="phone" placeholder="Telefon (opsiyonel)">
+                <input type="text" name="subject" id="subject" placeholder="Konu (opsiyonel)">
+                <textarea name="message" id="message" placeholder="Mesaj (opsiyonel)"></textarea>
+
+                <!-- Dosya input'unuzun name'i aşağıdaki gibi olmalı -->
+                <input type="file" name="cv_file" id="cv_file" accept=".pdf,.doc,.docx" required>
+
+                <button type="submit">Gönder</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">LuvaHr</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>Maslak Mah. Bilim Sok. Sun Plaza Kat:13 No:5/A</p>
+            <p>SARIYER / İSTANBUL</p>
+            <p class="mt-3"><strong>Telefon:</strong> <span>0212 366 57 32</span></p>
+            <p><strong>E-posta:</strong> <span>arasy541@gmail.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Faydalı Bağlantılar</h4>
+          <ul>
+            <li><a href="#">Anasayfa</a></li>
+            <li><a href="#">Hakkımızda</a></li>
+            <li><a href="#">Kullanım Şartları</a></li>
+            <li><a href="#">Gizlilik Politikası</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Diğer Bağlantılar</h4>
+          <ul>
+            <li><a href="#">Uzman Personel İşe Alımı</a></li>
+            <li><a href="#">Üst Düzey Yönetici İşe Alımı</a></li>
+            <li><a href="#">Kurumsal İK Danışmanlığı</a></li>
+            <li><a href="#">Yetenek Havuzu Yönetimi</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>E-Bültenimize Abone Olun</h4>
+          <p>E-bültenimize abone olarak ürünlerimiz ve hizmetlerimiz hakkındaki en son haberleri alın!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Abone Ol"></div>
+            <div class="loading">Yükleniyor</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Abonelik talebiniz gönderildi. Teşekkürler!</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Telif Hakkı</span> <strong class="px-1 sitename">LuvaHr</strong><span>Tüm Hakları Saklıdır</span></p>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Dist<a
+          href="https://themewagon.com">ThemeWagon
+      </div>
+    </div>
+
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+
+  <!-- CV Modal (Güncellenmiş tasarım) -->
+  <div class="modal fade" id="cvModal" tabindex="-1" aria-labelledby="cvModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="cvModalLabel">CV Gönder</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Kapat"></button>
+        </div>
+
+        <div class="modal-body">
+          <p class="text-muted">Kariyerinize yeni bir yön vermeye ne dersiniz? Aşağıdan CV'nizi bize iletebilirsiniz.
+          </p>
+
+          <form id="cvForm" action="/forms/cv-send" method="post" enctype="multipart/form-data" class="row g-3">
+            <div class="col-12">
+              <label for="name" class="form-label visually-hidden">Adınız</label>
+              <input type="text" name="name" id="name" placeholder="Adınız" required class="form-control">
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label visually-hidden">E-posta</label>
+              <input type="email" name="email" id="email" placeholder="E-posta" required class="form-control">
+            </div>
+            <div class="col-12">
+              <label for="phone" class="form-label visually-hidden">Telefon</label>
+              <input type="text" name="phone" id="phone" placeholder="Telefon (opsiyonel)" class="form-control">
+            </div>
+            <div class="col-12">
+              <label for="cv_file" class="form-label">CV Dosyası</label>
+              <input type="file" name="cvFile" id="cv_file" accept=".pdf,.doc,.docx" required class="form-control">
+            </div>
+            <div class="col-12">
+              <label for="section_title" class="form-label visually-hidden">Uzmanlıklarınız</label>
+              <input type="text" name="section_title" placeholder="Uzmanlıklarınız (opsiyonel)" class="form-control">
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-submit-cv">Gönder</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Başarı modalı -->
+  <div class="modal fade" id="cvSuccessModal" tabindex="-1" aria-labelledby="cvSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center p-4">
+          <div class="mb-2">
+            <i class="bi bi-check-circle-fill" style="font-size:2.2rem; color:var(--luva-primary)"></i>
+          </div>
+          <h5 id="cvSuccessLabel" class="mb-2">CV başarıyla gönderildi</h5>
+          <p class="text-muted mb-3">CV'niz başarılı bir şekilde gönderilmiştir.</p>
+          <button id="cvSuccessOk" class="btn btn-ok" data-bs-dismiss="modal" type="button">Tamam</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    // CV formunun AJAX ile gönderimi (form method/action korunur)
+    (function () {
+      const cvForm = document.getElementById('cvForm');
+      if (!cvForm) return;
+
+      cvForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const submitBtn = cvForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Gönderiliyor...';
+
+        const formData = new FormData(cvForm);
+
+        try {
+          const response = await fetch(cvForm.action, {
+            method: cvForm.method || 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            // Mevcut CV modalını kapat ve başarı modalını aç
+            const cvModalEl = document.getElementById('cvModal');
+            const cvModalInstance = bootstrap.Modal.getInstance(cvModalEl) || new bootstrap.Modal(cvModalEl);
+            cvModalInstance.hide();
+
+            const successModalEl = document.getElementById('cvSuccessModal');
+            const successModal = new bootstrap.Modal(successModalEl);
+            successModal.show();
+
+            // Tamam butonuna basılınca ana sayfaya yönlendir
+            const okBtn = document.getElementById('cvSuccessOk');
+            okBtn.addEventListener('click', function () {
+              window.location.href = 'index.html';
+            }, { once: true });
+          } else {
+            // Hata durumu: sunucudan gelen yanıtı gösterebilirsiniz
+            let msg = 'Gönderim sırasında bir hata oluştu. Lütfen tekrar deneyin.';
+            try {
+              const json = await response.json();
+              if (json && json.message) msg = json.message;
+            } catch (err) { /* ignore */ }
+            alert(msg);
+          }
+        } catch (err) {
+          alert('Ağ hatası: ' + (err.message || err));
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

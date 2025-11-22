@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Panel - CV Kayıtları</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-4">
+    <h1 class="mb-3">Admin - CV Kayıtları</h1>
+
+    <div class="row g-2 align-items-end mb-3">
+      <div class="col-md-3">
+        <label class="form-label">Uzmanlık</label>
+        <input id="filterExpertise" class="form-control" placeholder="Uzmanlık ile filtrele">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">İsim / Soyisim</label>
+        <input id="filterName" class="form-control" placeholder="İsim veya soyisim ara">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">E-posta</label>
+        <input id="filterEmail" class="form-control" placeholder="E-posta ara">
+      </div>
+      <div class="col-md-1">
+        <button id="btnRefresh" class="btn btn-primary w-100">Yenile</button>
+      </div>
+      <div class="col-md-2">
+        <button id="btnExportExcel" class="btn btn-success w-100">Excel İndir</button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered" id="cvsTable">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>İsim</th>
+            <th>E-posta</th>
+            <th>Telefon</th>
+            <th>Uzmanlık</th>
+            <th>Dosya</th>
+            <th>Oluşturulma</th>
+            <th>İşlemler</th>
+          </tr>
+        </thead>
+        <!-- tbody'ye id eklendi: admin.js artık burayı kullanacak -->
+        <tbody id="cvsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="editForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Kayıt Güncelle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editId">
+          <div class="mb-2">
+            <label class="form-label">İsim</label>
+            <input id="editName" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">E-posta</label>
+            <input id="editEmail" class="form-control" type="email" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Telefon</label>
+            <input id="editPhone" class="form-control">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Uzmanlık</label>
+            <input id="editExpertise" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- SheetJS (xlsx) CDN: Excel oluşturma için -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="/admin.js"></script>
+</body>
+</html>

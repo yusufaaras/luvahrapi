@@ -100,88 +100,90 @@
         margin: 0.5rem;
       }
     }
+
+    #header .navmenu ul li a {
+      /* Varsayılan yazı rengi */
+      color: black;
+      /* Geçiş efekti (opsiyonel, daha yumuşak bir hover için) */
+      transition: 0.3s;
+    }
+
+    #header .navmenu ul li a:hover,
+    #header .navmenu ul li .active {
+      /* Üzerine gelince ve aktifken (tıklanmış/mevcut sayfa) rengi */
+      color: #521e6a;
+    }
+
+    /* Mobil menü toggle butonu rengi (isteğe bağlı) */
+    #header .mobile-nav-toggle {
+      color: white;
+    }
+
+    #header .mobile-nav-toggle:hover {
+      color: #521e6a;
+    }
+
+    /* Cv Gönder butonu rengi (isteğe bağlı olarak) */
+    #header .btn-getstarted {
+      color: white;
+      /* Butonun içindeki yazı rengi */
+      border-color: white;
+      /* Butonun kenar rengi (eğer border varsa) */
+    }
+
+    #header .btn-getstarted:hover {
+      color: #521e6a;
+      /* Buton üzerindeki yazı rengi hover'da */
+      border-color: #521e6a;
+      /* Butonun kenar rengi hover'da */
+    }
   </style>
+
   <style>
-    #hero {
-      /* aynı dosya yolu kullandım, sadece özellikleri genişlettim */
-      background-image: url('assets/img/uzmanlık.png');
-      background-repeat: no-repeat;
-      background-position: center center;
-      /* merkezde tutar, medya sorgularında ayarlanıyor */
-      background-size: cover;
-      /* alanı kaplasın */
-      -webkit-background-size: cover;
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 1rem;
-      /* yatayda kenarlardan iç boşluk vererek taşmayı önler */
-      background-attachment: scroll;
-      /* mobilde sabit arka plan sorunlarını önler */
-    }
+   #hero {
+  background-image: url('assets/img/uzmanlık.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background-attachment: scroll;
+  background-color: #fff; /* opsiyonel: arka planda boşluk olursa renk belirleyebiliriz */
+}
 
-    /* Container kenar boşluklarını kontrol et */
-    #hero .container {
-      width: 100%;
-      padding: 0 1rem;
-      box-sizing: border-box;
-    }
+/* Mobilde arka planın kesilmesini engelle */
+@media (max-width: 992px) {
+  #hero {
+    background-size: contain !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    min-height: 75vh;
+    padding: 2.5rem 1rem;
+  }
+}
 
-    /* Yazıların ekran boyutuna göre ölçeklenmesi */
-    #hero h1 {
-      margin: 0 0 0.5rem 0;
-      line-height: 1.05;
-      /* clamp ile küçük ekranlarda küçülür, büyük ekranda büyür */
-      font-size: clamp(1.6rem, 4vw, 3rem);
-    }
+@media (max-width: 768px) {
+  #hero {
+    background-size: contain !important;
+    background-position: center center !important;
+    min-height: 65vh;
+    padding: 2rem 0.75rem;
+  }
+}
 
-    #hero p {
-      margin: 0;
-      font-size: clamp(1rem, 2.2vw, 1.25rem);
-    }
-
-    /* Küçük ekranlar için arka plan pozisyonu ve yükseklik ayarları */
-    @media (max-width: 992px) {
-      #hero {
-        /* Görüntünün mobilde önemli kısmı görünmesi için biraz yukarı kaydırabiliriz */
-        background-position: center 30%;
-        min-height: 75vh;
-        /* çok yer kaplamasın, içerik görünür kalsın */
-        padding: 2.5rem 1rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      #hero {
-        background-position: center 30%;
-        min-height: 65vh;
-        padding: 2rem 0.75rem;
-      }
-
-      /* Flex içindeki düzen küçük ekranda dikey olabilir */
-      #hero .d-flex {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      #hero {
-        background-position: center 20%;
-        min-height: 55vh;
-        padding: 1.5rem 0.75rem;
-      }
-
-      #hero h1 {
-        font-size: 1.4rem;
-      }
-
-      #hero p {
-        font-size: 0.95rem;
-      }
-    }
+@media (max-width: 480px) {
+  #hero {
+    background-size: contain !important;
+    background-position: center center !important;
+    min-height: 55vh;
+    padding: 1.5rem 0.75rem;
+  }
+}
   </style>
 
 </head>
@@ -215,12 +217,13 @@
     <section id="hero" class="hero section">
                   <div class="container text-center">
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <h1 data-aos="fade-up"><span>LuvaHr'a Hoş Geldiniz</span></h1>
+          <!--           <h1 data-aos="fade-up"><span>LuvaHr'a Hoş Geldiniz</span></h1>
                     <p data-aos="fade-up" data-aos-delay="100">İhtiyaç duyduğunuz doğru yetenekleri doğru fırsatlarla
-            buluşturuyoruz.<br></p>
+            buluşturuyoruz.<br></p> -->
                     <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                       </div>
-                  </div>
+                 
+        </div>
               </div>
 
           </section>
@@ -578,7 +581,7 @@
                 data-aos-delay="400">
                 <i class="bi bi-envelope"></i>
                 <h3>E-posta Gönderin</h3>
-                <p>arasy541@gmail.com</p>
+                <p>info@luvahr.com</p>
               </div>
             </div>
           </div>
@@ -586,23 +589,40 @@
           <div class="row gy-4 mt-1">
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3007.8286903330693!2d29.006945515256247!3d41.0664984792994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab697782d4cfd%3A0xf650d32f1a6b0c2a!2sSun%20Plaza!5e0!3m2!1str!2str!4v1700208000000!5m2!1str!2str"
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1498.0583344673322!2d29.01861916322964!3d41.11028625567764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDA2JzM3LjAiTiAyOcKwMDEnMDkuNiJF!5e0!3m2!1str!2str!4v1700688000000!5m2!1str!2str"
                 frameborder="0" style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+
             <div class="col-lg-6">
-              <form action="/api/submit-cv" method="post" enctype="multipart/form-data" class="cvi-modal-form">
-                <!-- input'larınızın name atribütleri aşağıdakine benzer olmalı -->
-                <input type="text" name="name" id="name" placeholder="Adınız" required>
-                <input type="email" name="email" id="email" placeholder="E-posta" required>
-                <input type="text" name="phone" id="phone" placeholder="Telefon (opsiyonel)">
-                <input type="text" name="subject" id="subject" placeholder="Konu (opsiyonel)">
-                <textarea name="message" id="message" placeholder="Mesaj (opsiyonel)"></textarea>
+              <form id="contactForm" class="php-email-form" data-aos="fade-up" data-aos-delay="400">
 
-                <!-- Dosya input'unuzun name'i aşağıdaki gibi olmalı -->
-                <input type="file" name="cv_file" id="cv_file" accept=".pdf,.doc,.docx" required>
+                <div class="row gy-4">
+                  <div class="col-md-12">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Ad Soyad" required>
+                  </div>
 
-                <button type="submit">Gönder</button>
+                  <div class="col-md-12">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="E-posta Adresiniz"
+                      required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Konu" required>
+                  </div>
+
+                  <div class="col-md-12">
+                    <textarea class="form-control" name="message" rows="6" id="message" placeholder="Mesajınız"
+                      required></textarea>
+                  </div>
+
+                  <div class="col-md-12 text-center">
+                    <div class="loading">Yükleniyor</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Mesajınız gönderildi. Teşekkürler!</div>
+                    <button type="submit">Mail Olarak Gönder</button>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -654,26 +674,12 @@
           </ul>
         </div>
 
-        <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>E-Bültenimize Abone Olun</h4>
-          <p>E-bültenimize abone olarak ürünlerimiz ve hizmetlerimiz hakkındaki en son haberleri alın!</p>
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Abone Ol"></div>
-            <div class="loading">Yükleniyor</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Abonelik talebiniz gönderildi. Teşekkürler!</div>
-          </form>
-        </div>
-
       </div>
     </div>
 
     <div class="container copyright text-center mt-4">
       <p>© <span>Telif Hakkı</span> <strong class="px-1 sitename">LuvaHr</strong><span>Tüm Hakları Saklıdır</span></p>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Dist<a
-          href="https://themewagon.com">ThemeWagon
-      </div>
+
     </div>
 
   </footer>
@@ -803,6 +809,35 @@
         }
       });
     })();
+  </script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (event) {
+      event.preventDefault(); // Formun normal gönderimini engelle
+
+      // Form alanlarından değerleri al
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const recipient = 'info@luvahr.com'; // Alıcı mail adresi
+
+      // Mailto linkini oluştur
+      // Ad Soyad ve Gönderen E-posta adresini mesaj gövdesine ekleyerek daha bilgilendirici hale getirelim.
+      const body = `Merhaba,
+
+Aşağıdaki mesaj ${name} tarafından (${email}) gönderilmiştir:
+
+${message}`;
+
+      // Mailto linki, URL güvenli formatta encode edilmelidir.
+      const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      // Mail uygulamasını aç
+      window.location.href = mailtoLink;
+
+      // Opsiyonel: Kullanıcıya mail uygulamasının açıldığını gösteren kısa bir mesaj verilebilir.
+      // document.querySelector('.sent-message').style.display = 'block';
+    });
   </script>
 </body>
 

@@ -1,5 +1,3 @@
-// CV kayıtlarını admin panelinin tablosunda göstermek ve filtrelemek için JS
-
 function fetchCVs() {
     const params = [];
     const expertise = document.getElementById('filterExpertise').value.trim();
@@ -34,14 +32,13 @@ function renderTable(list) {
             <td>${escapeHTML(item.expertise || '')}</td>
             <td>
                 ${item.cv_url
-                    ? `<a href="${item.cv_url}" target="_blank">${escapeHTML(item.original_filename || 'Dosya')}</a>`
+                    ? `<a href="${item.cv_url}" download target="_blank">${escapeHTML(item.original_filename || 'Dosya')}</a>`
                     : 'Yok'
                 }
             </td>
             <td>${item.created_at ? new Date(item.created_at).toLocaleString('tr-TR') : ''}</td>
             <td>
-                <button class="btn btn-sm btn-warning" onclick="editCV(${item.id})">Düzenle</button>
-                <button class="btn btn-sm btn-danger" onclick="deleteCV(${item.id})">Sil</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteCV(${item.id}, this)">Sil</button>
             </td>
         `;
         tbody.append(tr);
@@ -54,7 +51,6 @@ function escapeHTML(str) {
     }[s]));
 }
 
-// Basit olay tanımlamaları
 document.getElementById('btnRefresh').onclick = fetchCVs;
 document.getElementById('filterExpertise').oninput =
     document.getElementById('filterName').oninput =
@@ -62,21 +58,32 @@ document.getElementById('filterExpertise').oninput =
         fetchCVs();
     };
 
-// ilk yüklemede
 fetchCVs();
 
-// Dummy edit/delete fonksiyonları (geliştirilebilir)
-function editCV(id) {
-    alert('Düzenleme için backend ayrı eklenmeli: ' + id);
+function deleteCV(id, btn) {
+    if (!confirm('Bu kaydı ve dosyayı silmek istiyor musunuz?')) return;
+    btn.disabled = true;
+    fetch('/forms/cv-delete.php', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'id=' + encodeURIComponent(id)
+    })
+    .then(r => r.json())
+    .then(res => {
+        btn.disabled = false;
+        if (res.status === 'success') {
+            fetchCVs();
+        } else {
+            alert('Silinemedi: '+res.message);
+        }
+    })
+    .catch(() => {
+        btn.disabled = false;
+        alert('Silme işlemi başarısız!');
+    });
 }
 
-function deleteCV(id) {
-    if (confirm('Silmek istiyor musunuz?')) {
-        alert('Silme işlemi için backend ayrı eklenmeli: ' + id);
-    }
-}
-
-// Excel export: SheetJS ile tabloyu Excel'e aktar
+// Excel export
 document.getElementById('btnExportExcel').onclick = function() {
     const table = document.getElementById('cvsTable');
     const wb = XLSX.utils.table_to_book(table, {sheet: 'CVs'});
